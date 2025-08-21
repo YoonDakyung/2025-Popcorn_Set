@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | 팝콘 세트</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-container">
+    <a href="index.html">
+      <img src="images/logo.png" alt="팝콘 세트 로고" class="logo">
+    </a>
+    <h2>회원가입</h2>
+    <p class="subtitle">나만의 영화 차트를 만들고 싶다면 지금 가입하세요 🍿</p>
+
+    <form>
+      <label for="username">아이디</label>
+      <input type="text" id="username" name="username" placeholder="아이디 입력">
+
+      <label for="password">비밀번호</label>
+      <input type="password" id="password" name="password" placeholder="비밀번호 입력">
+
+      <label for="confirm-password">비밀번호 확인</label>
+      <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 확인">
+
+      <button type="submit" class="login-btn">회원가입</button>
+    </form>
+
+    <p class="signup-text">
+      이미 계정이 있으신가요? <a href="auth.html">로그인</a>
+    </p>
+  </div>
+    <script>
+  const form = document.querySelector('form');
+  const username = document.getElementById('username');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirm-password');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // 폼 제출 막기
+
+    // 유효성 검사
+    if (!username.value) {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+
+    if (password.value.length < 6) {
+      alert('비밀번호는 최소 6자리 이상이어야 합니다.');
+      return;
+    }
+
+    if (password.value !== confirmPassword.value) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    // 가입 완료 시
+    alert(`회원가입 완료! 환영합니다, ${username.value}님 😊`);
+    form.reset();
+  });
+</script>
+
+
+</body>
+</html>
