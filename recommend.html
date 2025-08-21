@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>추천 영화 - 팝콘 세트</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>
+      <a href="index.html">
+        <img src="images/logo.png" alt="로고">
+      </a>
+    </h1>
+
+    <nav>
+      <a href="index.html">홈</a>
+      <a href="recommend.html">추천</a>
+      <a href="mypage.html">마이페이지</a>
+    </nav>
+    <div class="auth-buttons">
+      <a href="auth.html" class="btn">로그인</a>
+      <a href="signup.html" class="btn">회원가입</a>
+    </div>
+  </header>
+
+  <main>
+    <h2>🎬 추천 영화</h2>
+    <div class="genre-buttons">
+      <button onclick="fetchByGenre(28)">액션</button>
+      <button onclick="fetchByGenre(35)">코미디</button>
+      <button onclick="fetchByGenre(18)">드라마</button>
+      <button onclick="fetchByGenre(27)">공포</button>
+    </div>
+    <div class="movie-grid" id="recommendGrid"></div>
+  </main>
+
+  <footer>
+    © 2025 팝콘 세트 | TMDB API 사용
+  </footer>
+
+  <script>
+    const API_KEY = "884e3ea6d151b0495737ff1db65dba6b";
+    const recommendGrid = document.getElementById("recommendGrid");
+
+    async function fetchByGenre(genreId) {
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=ko-KR&sort_by=popularity.desc&with_genres=${genreId}&page=1`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        recommendGrid.innerHTML = data.results.map(movie => `
+          <div class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+            <div class="info">
+              <h3>${movie.title}</h3>
+              <p>${movie.release_date}</p>
+            </div>
+          </div>
+        `).join("");
+      } catch (err) {
+        console.error("추천 영화 불러오기 실패:", err);
+      }
+    }
+
+    // 기본: 액션 장르 표시
+    fetchByGenre(28);
+  </script>
+</body>
+
+</html>
